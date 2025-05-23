@@ -11,6 +11,10 @@ app.get('/login', (req,res) => {
     res.send('Welcome Nikhil')
 })
 
+app.get('/about', (req, res)=>{
+  res.send(`<h1>Hey this is about section of developer Nikhil Kumar , you are on the right place now</h1>`)
+})
+
 app.listen(process.env.PORT || port, () => {
   console.log(`Example app listening on port ${port}`)
 })
