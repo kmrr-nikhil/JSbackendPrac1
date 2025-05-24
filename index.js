@@ -15,6 +15,11 @@ app.get('/about', (req, res)=>{
   res.send(`<h1>Hey this is about section of developer Nikhil Kumar , you are on the right place now</h1>`)
 })
 
+// Serve index.html for the root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'))
+})
+
 app.listen(process.env.PORT || port, () => {
   console.log(`Example app listening on port ${port}`)
 })
