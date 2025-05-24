@@ -16,7 +16,7 @@ app.get('/about', (req, res)=>{
 })
 
 // Serve index.html for the root route
-app.get('/', (req, res) => {
+app.get('/mainn', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'))
 })
 
