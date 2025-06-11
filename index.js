@@ -36,7 +36,7 @@ const jsonObj={
 }
 
 app.get('/', (req, res) => {
-  res.send('Hello my name is Dolly. This is my first deployed app. I am from Delhi. I am working in Pune')
+  res.send('Testing this web app')
 })
 
 app.get('/login', (req,res) => {
