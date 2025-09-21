@@ -36,7 +36,75 @@ const jsonObj={
 }
 
 app.get('/', (req, res) => {
-  res.send('Testing this web app')
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React </title>
+</head>
+<body>
+    <input type="text" placeholder="Enter todo">
+    <button onclick="addTodo()">Add ToDo</button>
+    <button onclick="deleteFirstTodo()">Delete First Todo</button>
+    <button onclick="deleteLastTodo()">Delete Last Todo</button>
+    <div id="todo"></div>
+</body>
+
+<script>
+        let todo=[];
+        function addTodo()
+        {
+            todo.push({
+                title: document.querySelector("input").value
+            })
+            render();
+        }
+
+        function deleteFirstTodo()
+        {
+            todo.splice(0,1);
+            render()
+        }
+
+        function deleteLastTodo()
+        {
+            todo.splice(todo.length-1);
+            render()
+        }
+
+        function createTodoComponent(todoItem,index)
+        {
+            const div = document.createElement("div");
+            const h1= document.createElement("h1");
+            const button = document.createElement("button");
+
+            button.innerHTML="Delete";
+            h1.innerHTML=todoItem.title;
+            button.onclick=function()
+            {
+                todo.splice(index,1);
+                render();
+            };
+            div.append(h1)
+            div.append(button)
+            return div
+        }
+
+
+        function render()
+        {
+            document.querySelector("#todo").innerHTML="";
+            for(let i=0; i<todo.length;i++)
+        {
+            const element = createTodoComponent(todo[i],i);
+            document.querySelector("#todo").appendChild(element);
+        }
+            
+        }
+
+</script>
+</html>`);
 })
 
 app.get('/login', (req,res) => {
