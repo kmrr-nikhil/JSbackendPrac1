@@ -112,7 +112,7 @@ app.get('/login', (req,res) => {
 })
 
 app.get('/about', (req, res)=>{
-  res.send(`<h1>Hey this is about section of developer Nikhil Kumar , you are on the right place now</h1>`)
+  res.send(`<h1>Hey hey this is about section of developer Nikhil Kumar , you are on the right place now</h1>`)
 })
 
 // Serve index.html for the root route
