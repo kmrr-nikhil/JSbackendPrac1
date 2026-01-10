@@ -1,130 +1,118 @@
-require('dotenv').config
+require('dotenv').config()
+
 const express = require('express')
 const app = express()
-const port = 4000;
-const path=require('path')
-const jsonObj={
-  "login": "kmrr-nikhil",
-  "avatar_url": "https://avatars.githubusercontent.com/u/56150013?v=4",
-  "gravatar_id": "",
-  "url": "https://api.github.com/users/kmrr-nikhil",
-  "html_url": "https://github.com/kmrr-nikhil",
-  "followers_url": "https://api.github.com/users/kmrr-nikhil/followers",
-  "following_url": "https://api.github.com/users/kmrr-nikhil/following{/other_user}",
-  "gists_url": "https://api.github.com/users/kmrr-nikhil/gists{/gist_id}",
-  "starred_url": "https://api.github.com/users/kmrr-nikhil/starred{/owner}{/repo}",
-  "subscriptions_url": "https://api.github.com/users/kmrr-nikhil/subscriptions",
-  "organizations_url": "https://api.github.com/users/kmrr-nikhil/orgs",
-  "repos_url": "https://api.github.com/users/kmrr-nikhil/repos",
-  "events_url": "https://api.github.com/users/kmrr-nikhil/events{/privacy}",
-  "received_events_url": "https://api.github.com/users/kmrr-nikhil/received_events",
-  "type": "User",
-  "user_view_type": "public",
-  "site_admin": false,
-  "name": "Nikhil Kumar",
-  "company": "PTC Software",
-  "blog": "",
-  "location": "Pune, Maharashtra",
-  "email": null,
-  "hireable": null,
-  "bio": "Professional Quality Analyst with more than 5 years of experience\r\nin software quality processes. Involved in end-to-end product\r\ntesting.",
-  "twitter_username": "kmrr_nikhil",
-  "public_repos": 10,
-  "public_gists": 0,
-  "followers": 1,
-  "following": 7
-}
+
+const PORT = process.env.PORT || 4000
 
 app.get('/', (req, res) => {
-  res.send(`<!DOCTYPE html>
+  res.send(`
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>React </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrackIt | Jira-like Tool</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f5f7;
+      color: #172b4d;
+    }
+    header {
+      background: white;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header h2 {
+      color: #0052cc;
+    }
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .btn {
+      background: #0052cc;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .features {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding: 40px;
+    }
+    .card {
+      background: white;
+      padding: 24px;
+      width: 250px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #091e42;
+      color: white;
+    }
+  </style>
 </head>
+
 <body>
-My name is Krishan mohan tyagi
-    <input type="text" placeholder="Enter todo">
-    <button onclick="addTodo()">Add ToDo</button>
-    <button onclick="deleteFirstTodo()">Delete First Todo</button>
-    <button onclick="deleteLastTodo()">Delete Last Todo</button>
-    <div id="todo"></div>
+
+<header>
+  <h2>TrackIt</h2>
+  <div>
+    <button class="btn">Login</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Plan. Track. Ship.</h1>
+  <p>A simple Jira-like project management tool</p>
+  <button class="btn">Get Started</button>
+</section>
+
+<section class="features">
+  <div class="card">
+    <h3>📋 Issues</h3>
+    <p>Create and track bugs and tasks.</p>
+  </div>
+  <div class="card">
+    <h3>📊 Boards</h3>
+    <p>Visual Kanban workflow.</p>
+  </div>
+  <div class="card">
+    <h3>⚡ Fast</h3>
+    <p>Minimal and fast for teams.</p>
+  </div>
+</section>
+
+<footer>
+  © 2026 TrackIt
+</footer>
+
 </body>
-
-<script>
-        let todo=[];
-        function addTodo()
-        {
-            todo.push({
-                title: document.querySelector("input").value
-            })
-            render();
-        }
-
-        function deleteFirstTodo()
-        {
-            todo.splice(0,1);
-            render()
-        }
-
-        function deleteLastTodo()
-        {
-            todo.splice(todo.length-1);
-            render()
-        }
-
-        function createTodoComponent(todoItem,index)
-        {
-            const div = document.createElement("div");
-            const h1= document.createElement("h1");
-            const button = document.createElement("button");
-
-            button.innerHTML="Delete";
-            h1.innerHTML=todoItem.title;
-            button.onclick=function()
-            {
-                todo.splice(index,1);
-                render();
-            };
-            div.append(h1)
-            div.append(button)
-            return div
-        }
-
-
-        function render()
-        {
-            document.querySelector("#todo").innerHTML="";
-            for(let i=0; i<todo.length;i++)
-        {
-            const element = createTodoComponent(todo[i],i);
-            document.querySelector("#todo").appendChild(element);
-        }
-            
-        }
-
-</script>
-</html>`);
+</html>
+`)
 })
 
-app.get('/login', (req,res) => {
-    res.send('Welcome Nikhil')
-})
-
-app.get('/about', (req, res)=>{
-  res.send(`<h1>Hey hey this is about section of developer Nikhil Kumar , you are on the right place now</h1>`)
-})
-
-// Serve index.html for the root route
-app.get('/mainn', (req, res) => {
-  res.sendFile(path.join(__dirname, './index.html'))
-})
-
-app.get('/github', (req, res)=>{
-  res.json(jsonObj)
-})
-
-app.listen(process.env.PORT || port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
 })
